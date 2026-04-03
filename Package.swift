@@ -12,25 +12,47 @@ let package = Package(
         .library(name: "AppManagerPush", targets: ["AppManagerPush"]),
     ],
     targets: [
+        // Binary targets
         .binaryTarget(
+            name: "AppManagerCoreBinary",
+            url: "https://github.com/leejongyeol83/appmanager-ios/releases/download/v1.0.2/AppManagerCore.xcframework.zip",
+            checksum: "93663e99347bd103e52d9ba50c425c816354a565ad55cc93c30ad2d59c60545c"
+        ),
+        .binaryTarget(
+            name: "AppManagerLinksBinary",
+            url: "https://github.com/leejongyeol83/appmanager-ios/releases/download/v1.0.2/AppManagerLinks.xcframework.zip",
+            checksum: "a64f29f222ffa2bfc9d689aa5fcf357b9298a513d55c591066455007de817c96"
+        ),
+        .binaryTarget(
+            name: "AppManagerGuardBinary",
+            url: "https://github.com/leejongyeol83/appmanager-ios/releases/download/v1.0.2/AppManagerGuard.xcframework.zip",
+            checksum: "54c8cd69b6ffdc5ba30f175d7797a18da4993da53f5d3cba4d59c8f0bb3c12df"
+        ),
+        .binaryTarget(
+            name: "AppManagerPushBinary",
+            url: "https://github.com/leejongyeol83/appmanager-ios/releases/download/v1.0.2/AppManagerPush.xcframework.zip",
+            checksum: "e9ca8742ea0eaed6b99278ffed970df05cd52bc07838e5b8d6b09136096329d7"
+        ),
+        // Wrapper targets (의존관계 선언)
+        .target(
             name: "AppManagerCore",
-            url: "https://github.com/leejongyeol83/appmanager-ios/releases/download/v1.0.1/AppManagerCore.xcframework.zip",
-            checksum: "73df09bfb1c0a154dfd37c4798d4585d6dc3f136f60872b3abe6dee35ef7be96"
+            dependencies: ["AppManagerCoreBinary"],
+            path: "Sources/AppManagerCore"
         ),
-        .binaryTarget(
+        .target(
             name: "AppManagerLinks",
-            url: "https://github.com/leejongyeol83/appmanager-ios/releases/download/v1.0.1/AppManagerLinks.xcframework.zip",
-            checksum: "da2eeee18b4c9da8020ec353d7516aa13ccede0d335d6d5004b0bea870d8c352"
+            dependencies: ["AppManagerLinksBinary", "AppManagerCore"],
+            path: "Sources/AppManagerLinks"
         ),
-        .binaryTarget(
+        .target(
             name: "AppManagerGuard",
-            url: "https://github.com/leejongyeol83/appmanager-ios/releases/download/v1.0.1/AppManagerGuard.xcframework.zip",
-            checksum: "eee1c9c48e4422dfc9fd235e72b86f0d39397c11417a10a94993a92a7c86988d"
+            dependencies: ["AppManagerGuardBinary", "AppManagerCore"],
+            path: "Sources/AppManagerGuard"
         ),
-        .binaryTarget(
+        .target(
             name: "AppManagerPush",
-            url: "https://github.com/leejongyeol83/appmanager-ios/releases/download/v1.0.1/AppManagerPush.xcframework.zip",
-            checksum: "54e84a31fd61bb71d93a18b22bca19a9d65dced69facc8030da949173bbf2e64"
+            dependencies: ["AppManagerPushBinary", "AppManagerCore"],
+            path: "Sources/AppManagerPush"
         ),
     ]
 )

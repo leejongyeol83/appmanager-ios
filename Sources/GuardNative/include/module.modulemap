@@ -1,0 +1,4 @@
+module GuardNative {
+    header "GuardNative.h"
+    export *
+}
