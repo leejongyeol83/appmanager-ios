@@ -1,1 +1,0 @@
-// GuardNative placeholder
